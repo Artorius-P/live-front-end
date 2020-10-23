@@ -2,9 +2,9 @@
     <div>
     <div class="login-wrap">
       <el-row type="flex" justify="center">
-        <el-form ref="loginForm" :model="user" :rules="rules" status-icon label-width="80px">
-          <el-form-item prop="username" label="用户名">
-            <el-input v-model="user.username" placeholder="请输入用户名" prefix-icon></el-input>
+        <el-form ref="loginForm" :model="user"  status-icon label-width="80px">
+          <el-form-item prop="id" label="用户ID">
+            <el-input v-model="user.id" placeholder="请输入用户ID" prefix-icon></el-input>
           </el-form-item>
           <el-form-item id="password" prop="password" label="密码">
             <el-input v-model="user.password" show-password placeholder="请输入密码"></el-input>
@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       user: {
-        username: "",
+        id: "",
         password: ""
       }  
     };
@@ -35,8 +35,8 @@ export default {
   created() {},
   methods: {
     doLogin() {
-      if (!this.user.username) {
-        this.$message.error("请输入用户名！");
+      if (!this.user.id) {
+        this.$message.error("请输入用户ID！");
         return;
       } else if (!this.user.password) {
         this.$message.error("请输入密码！");
@@ -45,16 +45,24 @@ export default {
         //校验用户名和密码是否正确;
         // this.$router.push({ path: "/personal" });
         axios
-          .post("/api/login", {
-            name: this.user.username,
+          .post("http://127.0.0.1:5000/api/login", {
+            id: this.user.id,
             password: this.user.password
           })
           .then(res => {
-            // console.log("输出response.data.status", res.data.status);
-            if (res.data.status === 200) {
-              this.$router.push({ path: "/home" });
+            console.log("输出response.data.status", res.data);
+            if (res.data.status === 1) {
+              this.$store.state.loginInfo = {
+                isLoggedIn: true,
+                token: res.data.token,
+                id: res.data.id,
+                username: res.data.username,
+                identity: res.data.identity,
+              };
+              this.$store.state.loginVisible = false;
+              this.$message.success(res.data.username +' 登录成功');
             } else {
-              alert("您输入的用户名或密码错误！");
+              this.$message.error('用户ID或密码错误！');
             }
           });
       }

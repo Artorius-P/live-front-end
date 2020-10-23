@@ -1,11 +1,16 @@
 <template>
   <div id="app">
+    <el-container>
       <el-header>
         <div>
           <Nav></Nav>
         </div>
       </el-header>
+      <el-main>
       <router-view></router-view>
+      </el-main>
+      <el-footer style="position:absolute;bottom:0;width:100%;height:100px;">Copyright  ©  Artorius 2020 - Present</el-footer>
+    </el-container>
   </div>
 </template>
 
@@ -35,4 +40,5 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
 </style>
