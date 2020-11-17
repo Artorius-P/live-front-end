@@ -66,7 +66,7 @@ export default {
         cancelButtonText: '取消',
         type: 'successs',}).then(() => {
         this.$message({
-            type: 'success',
+            type: 'warning',
             message: '您已退出登录。'
         });
         this.$store.state.loginInfo = {

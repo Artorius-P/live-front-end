@@ -1,10 +1,12 @@
 <template>
   <div>
-  <p>请点击下方按钮选择直播课程</p>
+    <p>查询到您的课程列表如下：</p>
   <el-table
     :data="tableData"
+    v-loading="loading"
     border
-    style="width: 100%">
+    style="width: 100%"
+    :on-loading="getData">
     <el-table-column
       prop="id"
       label="课程ID"
@@ -18,6 +20,11 @@
     <el-table-column
       prop="teacher"
       label="授课教师"
+      width="120">
+    </el-table-column>
+    <el-table-column
+      prop="tid"
+      label="授课教师ID"
       width="120">
     </el-table-column>
     <el-table-column
@@ -37,23 +44,49 @@
 </template>
 
 <script>
+  import axios from "axios"
   export default {
     methods: {
       handleClick(row) {
-        console.log(row);
+        this.$store.state.room = row
+        this.$router.push('/room').catch(()=>{})
+      },
 
+    getData() {
+      if (this.$store.state.loginInfo.isLoggedIn) {
+        this.loading = true
+        axios.get('http://127.0.0.1:5000/api/getRoom', {
+          headers: {
+            'Authorization': `Token ${this.$store.state.loginInfo.token}`
+          }
+        })
+        .then((res) => {
+          this.tableData = res.data
+        })
+        .catch((error) => {
+          this.$message.error(error)
+        })
       }
+      else {
+        this.$message.error("请先登录！")
+      }
+      this.loading = false
+    },
     },
 
     data() {
       return {
-        tableData: [{
-            name: "综合项目实践",
-            teacher: "teacher",
-            profile: "2020年秋学期",
-            id: 1
-        }]
+        tableData: [],
+        loading: false
       }
     },
+    mounted: function() {
+      this.tableData = []
+      this.getData()
+
+    }
+
+
   }
+
 </script>

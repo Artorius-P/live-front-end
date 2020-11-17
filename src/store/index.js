@@ -13,6 +13,8 @@ export default new Vuex.Store({
       identity: null,
     },
     loginVisible: false,
+    room: null,
+    chat: false,
   },
   getters: {
   },
