@@ -30,7 +30,7 @@
     title="白板"
     :visible.sync="whiteBoard"
     direction="ttb"
-    size="70%"
+    size="100%"
     >
     <boardPage></boardPage>
     </el-drawer>
