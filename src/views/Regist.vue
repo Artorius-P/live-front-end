@@ -1,18 +1,24 @@
 <template>
-    <div>
-    <div class="login-wrap">
+  <div>
+    <h1>注册用户</h1>
+      <el-alert
+      title="注册仅支持学生身份，教师注册请联系管理员"
+      type="success">
+      </el-alert>
+     <div class="login-wrap">
       <el-row type="flex" justify="center">
         <el-form ref="loginForm" :model="user"  status-icon label-width="80px">
-          <el-form-item prop="id" label="用户ID">
-            <el-input v-model="user.id" placeholder="请输入用户ID" prefix-icon></el-input>
+          <el-form-item prop="id" label="用户名">
+            <el-input v-model="user.id" placeholder="请输入用户名" prefix-icon></el-input>
           </el-form-item>
           <el-form-item id="password" prop="password" label="密码">
             <el-input v-model="user.password" show-password placeholder="请输入密码"></el-input>
           </el-form-item>
-          <el-link href="/forget" :underline="false">忘记密码？</el-link>
-          <el-link href="/regist"  :underline="false">注册账号</el-link>
+          <el-form-item id="password" prop="password" label="确认密码">
+            <el-input v-model="user.confirmPassword" show-password placeholder="请确认密码"></el-input>
+          </el-form-item>
           <el-form-item>
-            <el-button type="primary"  @click="doLogin()">登 录</el-button>
+            <el-button type="primary"  @click="doLogin()">注 册</el-button>
           </el-form-item>
         </el-form>
       </el-row>
@@ -23,12 +29,13 @@
 <script>
 import axios from "axios";
 export default {
-  name: "login",
+  name: "regist",
   data() {
     return {
       user: {
         id: "",
-        password: ""
+        password: "",
+        confirmPassword: ""
       }  
     };
   },
@@ -36,33 +43,30 @@ export default {
   methods: {
     doLogin() {
       if (!this.user.id) {
-        this.$message.error("请输入用户ID！");
+        this.$message.error("请输入用户名！");
         return;
       } else if (!this.user.password) {
         this.$message.error("请输入密码！");
+        return;
+      } else if (this.user.password != this.user.confirmPassword) {
+        this.$message.error("两次密码不匹配！");
         return;
       } else {
         //校验用户名和密码是否正确;
         // this.$router.push({ path: "/personal" });
         axios
-          .post("http://127.0.0.1:5000/api/login", {
-            id: this.user.id,
+          .post("http://localhost:5000/api/regist", {
+            name: this.user.id,
             password: this.user.password
           })
           .then(res => {
-            console.log("输出response.data.status", res.data);
             if (res.data.status === 1) {
-              this.$store.state.loginInfo = {
-                isLoggedIn: true,
-                token: res.data.token,
-                id: res.data.id,
-                username: res.data.username,
-                identity: res.data.identity,
-              };
-              this.$store.state.loginVisible = false;
-              this.$message.success(res.data.username +' 登录成功');
+              this.$alert('您的用户ID为:' + res.data.uid + '，请牢记。', '注册成功', {
+                confirmButtonText: '确定',
+                callback: this.$router.push('/home')
+              })
             } else {
-              this.$message.error('用户ID或密码错误！');
+              this.$message.error('注册失败');
             }
           });
       }
@@ -71,7 +75,7 @@ export default {
 };
 </script>
  
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
 .login-wrap {
   overflow: hidden;
