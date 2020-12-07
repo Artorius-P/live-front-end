@@ -58,6 +58,7 @@ export default {
                 id: res.data.id,
                 username: res.data.username,
                 identity: res.data.identity,
+                mail: res.data.mail
               };
               this.$store.state.loginVisible = false;
               this.$message.success(res.data.username +' 登录成功');

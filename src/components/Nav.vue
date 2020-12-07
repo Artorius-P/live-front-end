@@ -60,7 +60,8 @@ export default {
         }
         let msg = [this.$createElement('p', null, "ID:" + this.$store.state.loginInfo.id),
           this.$createElement('p', null,"用户名:" + this.$store.state.loginInfo.username),
-          this.$createElement('p', null, "身份:" + identity)];
+          this.$createElement('p', null, "身份:" + identity),
+          this.$createElement('p', null, "邮箱:" + this.$store.state.loginInfo.mail)];
         this.$confirm(this.$createElement('div',null, msg), "用户信息", {
         confirmButtonText: "退出登录",
         cancelButtonText: '取消',
@@ -75,6 +76,7 @@ export default {
             id: null,
             username: null,
             identity: null,
+            mail: null
         }
         })
             // .catch(() => {

@@ -8,13 +8,13 @@
      <div class="login-wrap">
       <el-row type="flex" justify="center">
         <el-form ref="loginForm" :model="user"  status-icon label-width="80px">
-          <el-form-item prop="id" label="用户名">
-            <el-input v-model="user.id" placeholder="请输入用户名" prefix-icon></el-input>
+          <el-form-item prop="name" label="用户名">
+            <el-input v-model="user.name" placeholder="请输入用户名" prefix-icon></el-input>
           </el-form-item>
           <el-form-item id="password" prop="password" label="密码">
             <el-input v-model="user.password" show-password placeholder="请输入密码"></el-input>
           </el-form-item>
-          <el-form-item id="password" prop="password" label="确认密码">
+          <el-form-item id="confirmPassword" prop="confirmPassword" label="确认密码">
             <el-input v-model="user.confirmPassword" show-password placeholder="请确认密码"></el-input>
           </el-form-item>
           <el-form-item>
@@ -33,7 +33,7 @@ export default {
   data() {
     return {
       user: {
-        id: "",
+        name: "",
         password: "",
         confirmPassword: ""
       }  
@@ -42,7 +42,7 @@ export default {
   created() {},
   methods: {
     doLogin() {
-      if (!this.user.id) {
+      if (!this.user.name) {
         this.$message.error("请输入用户名！");
         return;
       } else if (!this.user.password) {
@@ -56,7 +56,7 @@ export default {
         // this.$router.push({ path: "/personal" });
         axios
           .post("http://localhost:5000/api/regist", {
-            name: this.user.id,
+            name: this.user.name,
             password: this.user.password
           })
           .then(res => {

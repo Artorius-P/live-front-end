@@ -11,6 +11,7 @@ export default new Vuex.Store({
       id: null,
       username: null,
       identity: null,
+      mail: null
     },
     loginVisible: false,
     room: null,
