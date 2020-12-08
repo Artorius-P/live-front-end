@@ -11,6 +11,9 @@
           <el-form-item prop="name" label="用户名">
             <el-input v-model="user.name" placeholder="请输入用户名" prefix-icon></el-input>
           </el-form-item>
+          <el-form-item prop="mail" label="邮箱">
+            <el-input v-model="user.mail" placeholder="请输入邮箱" prefix-icon></el-input>
+          </el-form-item>
           <el-form-item id="password" prop="password" label="密码">
             <el-input v-model="user.password" show-password placeholder="请输入密码"></el-input>
           </el-form-item>
@@ -34,6 +37,7 @@ export default {
     return {
       user: {
         name: "",
+        mail: "",
         password: "",
         confirmPassword: ""
       }  
@@ -45,7 +49,10 @@ export default {
       if (!this.user.name) {
         this.$message.error("请输入用户名！");
         return;
-      } else if (!this.user.password) {
+      } else if (!this.user.mail) {
+        this.$message.error("请输入邮箱！");
+        return;
+      }else if (!this.user.password) {
         this.$message.error("请输入密码！");
         return;
       } else if (this.user.password != this.user.confirmPassword) {
@@ -57,7 +64,8 @@ export default {
         axios
           .post("http://localhost:5000/api/regist", {
             name: this.user.name,
-            password: this.user.password
+            password: this.user.password,
+            mail: this.user.mail
           })
           .then(res => {
             if (res.data.status === 1) {
