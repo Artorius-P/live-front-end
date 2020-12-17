@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.21.0",
     "element-ui": "^2.4.5",
+    "fabric": "^4.2.0",
     "flv.js": "^1.5.0",
     "socket.io": "^2.3.0",
     "vue": "^2.6.11",

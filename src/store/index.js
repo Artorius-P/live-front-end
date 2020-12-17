@@ -16,10 +16,14 @@ export default new Vuex.Store({
     loginVisible: false,
     room: null,
     chat: false,
+    drawType: '',
   },
   getters: {
   },
   mutations: {
+    TOOGLE_TOOLS: (state, type) =>{
+			state.drawType = type
+		}
   },
   actions: {
   },
