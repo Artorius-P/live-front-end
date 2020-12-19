@@ -44,48 +44,61 @@ export default {
   },
   methods: {
     handleSelect(key, keyPath) {
-        console.log(key, keyPath);
+      console.log(key, keyPath);
     },
-    handleClose () {
-        this.$store.state.loginVisible = false;
+    handleClose() {
+      this.$store.state.loginVisible = false;
     },
     loginButton() {
       if (this.$store.state.loginInfo.isLoggedIn) {
-          let identity = ''
+        let identity = "";
         if (this.$store.state.loginInfo.identity) {
-            identity = '教师';
+          identity = "教师";
+        } else {
+          identity = "学生";
         }
-        else {
-            identity = '学生';
-        }
-        let msg = [this.$createElement('p', null, "ID:" + this.$store.state.loginInfo.id),
-          this.$createElement('p', null,"用户名:" + this.$store.state.loginInfo.username),
-          this.$createElement('p', null, "身份:" + identity),
-          this.$createElement('p', null, "邮箱:" + this.$store.state.loginInfo.mail)];
-        this.$confirm(this.$createElement('div',null, msg), "用户信息", {
-        confirmButtonText: "退出登录",
-        cancelButtonText: '取消',
-        type: 'successs',}).then(() => {
-        this.$message({
-            type: 'warning',
-            message: '您已退出登录。'
-        });
-        this.$store.state.loginInfo = {
+        let msg = [
+          this.$createElement(
+            "p",
+            null,
+            "ID:" + this.$store.state.loginInfo.id
+          ),
+          this.$createElement(
+            "p",
+            null,
+            "用户名:" + this.$store.state.loginInfo.username
+          ),
+          this.$createElement("p", null, "身份:" + identity),
+          this.$createElement(
+            "p",
+            null,
+            "邮箱:" + this.$store.state.loginInfo.mail
+          ),
+        ];
+        this.$confirm(this.$createElement("div", null, msg), "用户信息", {
+          confirmButtonText: "退出登录",
+          cancelButtonText: "取消",
+          type: "successs",
+        }).then(() => {
+          this.$message({
+            type: "warning",
+            message: "您已退出登录。",
+          });
+          this.$store.state.loginInfo = {
             isLoggedIn: false,
             token: null,
             id: null,
             username: null,
             identity: null,
-            mail: null
-        }
-        })
-            // .catch(() => {
-            // this.$message({
-            //     type: 'info',
-            //     message: '已取消删除'
-            // });          
-            // });
-            
+            mail: null,
+          };
+        });
+        // .catch(() => {
+        // this.$message({
+        //     type: 'info',
+        //     message: '已取消删除'
+        // });
+        // });
       } else {
         this.$store.state.loginVisible = true;
       }

@@ -140,12 +140,12 @@ export default {
         room: "white" + this.$store.state.room.id,
         username: this.$store.state.loginInfo.username,
       });
-      socket.on("wclient", (data) => { 
-          this.fabricHistoryJson.push(data.history);
-          console.log(data);
-          //this.fabricObj.clear().renderAll();
-          this.fabricObj.loadFromJSON(data.history);
-          this.fabricObj.renderAll();
+      socket.on("wclient", (data) => {
+        this.fabricHistoryJson.push(data.history);
+        console.log(data);
+        //this.fabricObj.clear().renderAll();
+        this.fabricObj.loadFromJSON(data.history);
+        this.fabricObj.renderAll();
       });
     },
     //时间监听

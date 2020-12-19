@@ -1,18 +1,26 @@
 <template>
-    <div>
+  <div>
     <div class="login-wrap">
       <el-row type="flex" justify="center">
-        <el-form ref="loginForm" :model="user"  status-icon label-width="80px">
+        <el-form ref="loginForm" :model="user" status-icon label-width="80px">
           <el-form-item prop="id" label="用户ID">
-            <el-input v-model="user.id" placeholder="请输入用户ID" prefix-icon></el-input>
+            <el-input
+              v-model="user.id"
+              placeholder="请输入用户ID"
+              prefix-icon
+            ></el-input>
           </el-form-item>
           <el-form-item id="password" prop="password" label="密码">
-            <el-input v-model="user.password" show-password placeholder="请输入密码"></el-input>
+            <el-input
+              v-model="user.password"
+              show-password
+              placeholder="请输入密码"
+            ></el-input>
           </el-form-item>
           <el-link href="/forget" :underline="false">忘记密码？</el-link>
-          <el-link href="/regist"  :underline="false">注册账号</el-link>
+          <el-link href="/regist" :underline="false">注册账号</el-link>
           <el-form-item>
-            <el-button type="primary"  @click="doLogin()">登 录</el-button>
+            <el-button type="primary" @click="doLogin()">登 录</el-button>
           </el-form-item>
         </el-form>
       </el-row>
@@ -28,8 +36,8 @@ export default {
     return {
       user: {
         id: "",
-        password: ""
-      }  
+        password: "",
+      },
     };
   },
   created() {},
@@ -47,9 +55,9 @@ export default {
         axios
           .post("http://127.0.0.1:5000/api/login", {
             id: this.user.id,
-            password: this.user.password
+            password: this.user.password,
           })
-          .then(res => {
+          .then((res) => {
             console.log("输出response.data.status", res.data);
             if (res.data.status === 1) {
               this.$store.state.loginInfo = {
@@ -58,17 +66,17 @@ export default {
                 id: res.data.id,
                 username: res.data.username,
                 identity: res.data.identity,
-                mail: res.data.mail
+                mail: res.data.mail,
               };
               this.$store.state.loginVisible = false;
-              this.$message.success(res.data.username +' 登录成功');
+              this.$message.success(res.data.username + " 登录成功");
             } else {
-              this.$message.error('用户ID或密码错误！');
+              this.$message.error("用户ID或密码错误！");
             }
           });
       }
-    }
-  }
+    },
+  },
 };
 </script>
  

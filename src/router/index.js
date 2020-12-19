@@ -19,7 +19,7 @@ const routes = [
     component: function () {
       return import(/* webpackChunkName: "about" */ '../views/About.vue')
     }
-  }, 
+  },
   {
     path: '/',
     redirect: '/home'
@@ -53,14 +53,14 @@ const routes = [
     component: function () {
       return import(/* webpackChunkName: "about" */ '../views/Forget.vue')
     },
-    
+
   }
-  
+
 ]
 
 const router = new VueRouter({
   routes,
-  mode:'history'
+  mode: 'history'
 })
 
 export default router

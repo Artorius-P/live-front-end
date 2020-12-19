@@ -21,9 +21,9 @@ export default new Vuex.Store({
   getters: {
   },
   mutations: {
-    TOOGLE_TOOLS: (state, type) =>{
-			state.drawType = type
-		}
+    TOOGLE_TOOLS: (state, type) => {
+      state.drawType = type
+    }
   },
   actions: {
   },
