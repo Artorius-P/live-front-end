@@ -6,6 +6,10 @@
       </el-header>
       <el-main>
         <live></live>
+        <vue-webrtc ref="webrtc"
+                      width="100%"
+                      :roomId="roomId"
+                      @error="onError" />
         <el-row>
           <br />
         </el-row>
@@ -25,6 +29,14 @@
             plain
           >
             聊天
+          </el-button>
+          <el-button v-if="isStu"
+            @click="talk"
+            icon="el-icon-chat-round"
+            style="margin-left: 16px"
+            plain
+          >
+            连麦
           </el-button>
         </el-row>
         <el-drawer
@@ -63,7 +75,16 @@ export default {
   data() {
     return {
       whiteBoard: false,
+      isStu: false,
+      roomId: null,
+      img: null
     };
+  },
+  mounted(){
+    if(this.$store.state.loginInfo.identity == '0') {
+      this.isStu =true
+      this.roomId = this.$store.state.room.id;
+      }
   },
   components: {
     notLogin,
@@ -78,6 +99,9 @@ export default {
     chatClose() {
       this.$store.state.chat = false;
     },
+    talk() {
+      this.img = this.$refs.webrtc.shareScreen();
+    }
   },
   computed: {},
 };

@@ -1,8 +1,8 @@
 <template>
   <div>
     <video id="videoElement" controls autoplay width="512" height="288"></video>
+    <el-footer style="text-align: center;">
     <div v-if="isTeacher">
-      <el-footer style="text-align: center;">
       <el-select v-model="videoValue" placeholder="请选择视频源">
         <el-option
           v-for="item in videos"
@@ -20,13 +20,17 @@
         </el-option>
       </el-select>
     <el-button type="primary" @click="teacherPlay">开始推流</el-button>
+  </div>
     </el-footer>
-    </div>
+    
+
   </div>
 </template>
 
 <script>
 import flvjs from "flv.js";
+
+
 
 export default {
   name: "list",
@@ -38,9 +42,11 @@ export default {
       videoValue: '',
       audios: [],
       audioValue: '',
+      roomID: null,
     };
   },
   mounted() {
+    this.roomID = this.$store.state.room.id;
     if(this.$store.state.loginInfo.identity == '1') {
       this.isTeacher =true
       this.$axios.get('http://127.0.0.1:8086/device').then((response) => {
@@ -53,7 +59,7 @@ export default {
     if (flvjs.isSupported()) {
       let liveUrl =
         "http://a.boynextdoor.top/srs/live/" +
-        this.$store.state.room.id +
+        this.roomID +
         ".flv";
       var videoElement = document.getElementById("videoElement");
       this.flvPlayer = flvjs.createPlayer({
@@ -73,7 +79,7 @@ export default {
       this.$axios.post('http://127.0.0.1:8086/play', {
             audio: this.audioValue,
             video: this.videoValue,
-            url: 'rtmp://a.boynextdoor.top:1935/live/'+ this.$store.state.room.id
+            url: 'rtmp://a.boynextdoor.top:1935/live/'+ this.roomID
           }).then((res) => {
             console.log(res.data)
           })
