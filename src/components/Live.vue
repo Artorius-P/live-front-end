@@ -35,12 +35,16 @@ export default {
     return {
       flvPlayer: null,
       isTeacher: false,
+      videos: [],
+      videoValue: '',
+      audios: [],
+      audioValue: '',
     };
   },
   mounted() {
     if(this.$store.state.loginInfo.identity == '1') {
       this.isTeacher =true
-        this.$axios.get('http://127.0.0.1:8086/device').then((response) => {
+      this.$axios.get('http://127.0.0.1:8086/device').then((response) => {
       this.videos = response.data.video
       this.audios = response.data.audio
     }).catch((error) => {
