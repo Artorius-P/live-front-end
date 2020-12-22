@@ -3,7 +3,6 @@
     <video id="videoElement" controls autoplay width="512" height="288"></video>
     <div v-if="isTeacher">
       <el-footer style="text-align: center;">
-    <el-input v-model="room" placeholder="请输入房间号" style="width:200px"></el-input>
       <el-select v-model="videoValue" placeholder="请选择视频源">
         <el-option
           v-for="item in videos"
@@ -20,7 +19,7 @@
           :value="item">
         </el-option>
       </el-select>
-    <el-button type="primary" @click="lay">开始推流</el-button>
+    <el-button type="primary" @click="teacherPlay">开始推流</el-button>
     </el-footer>
     </div>
   </div>
@@ -71,26 +70,14 @@ export default {
       
     },
     teacherPlay () {
-      let liveUrl = 'http://a.boynextdoor.top/srs/live/'+ this.room +'.flv'
       this.$axios.post('http://127.0.0.1:8086/play', {
             audio: this.audioValue,
             video: this.videoValue,
-            url: 'rtmp://a.boynextdoor.top:1935/live/'+ this.room 
+            url: 'rtmp://a.boynextdoor.top:1935/live/'+ this.$store.state.room.id
           }).then((res) => {
             console.log(res.data)
           })
-      if (flvjs.isSupported()) {
-      // 这里通过在本地开启一个flask作为restful API， 通过本地交互开启推流。
-      var videoElement = document.getElementById('videoElement')
-      this.flvPlayer = flvjs.createPlayer({
-        type: 'flv',
-        url: liveUrl
-      });
-      this.flvPlayer.attachMediaElement(videoElement)
-      this.flvPlayer.load()
       }
-        this.flvPlayer.play()
-    }
   },
 };
 </script>
