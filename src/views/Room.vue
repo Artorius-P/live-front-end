@@ -6,9 +6,14 @@
       </el-header>
       <el-main>
         <live></live>
-        <vue-webrtc ref="webrtc"
+          <vue-webrtc ref="webrtc"
                       width="100%"
                       :roomId="roomId"
+                      v-on:joined-room="logEvent"
+                      v-on:left-room="logEvent"
+                      v-on:opened-room="logEvent"
+                      v-on:share-started="logEvent"
+                      v-on:share-stopped="logEvent"
                       @error="onError" />
         <el-row>
           <br />
@@ -70,18 +75,19 @@ import notLogin from "@/components/NotLogin";
 import live from "@/components/Live";
 import chatPage from "@/components/Chat";
 import boardPage from "@/components/WhiteBoard";
-
+import * as io from 'socket.io-client'
+window.io = io
 export default {
   data() {
     return {
       whiteBoard: false,
       isStu: false,
       roomId: null,
-      img: null
+      img: null,
+      isConnected: false
     };
   },
   mounted(){
-    this.$refs.webrtc.join();
     if(this.$store.state.loginInfo.identity == '0') {
       this.isStu =true
       this.roomId = this.$store.state.room.id;
@@ -101,8 +107,19 @@ export default {
       this.$store.state.chat = false;
     },
     talk() {
-      this.img = this.$refs.webrtc.shareScreen();
-    }
+      if (! this.isConnected){
+        this.img = this.$refs.webrtc.join();
+        this.isConnected = true;
+      }
+      else {
+        this.$refs.webrtc.leave();
+        this.isConnected = false;
+      }
+      
+    },
+    logEvent(event) {
+        console.log('Event : ', event);
+        }
   },
   computed: {},
 };

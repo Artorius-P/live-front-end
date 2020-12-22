@@ -9,9 +9,7 @@
       <el-main>
         <router-view></router-view>
       </el-main>
-      <el-footer
-        style="position: absolute; bottom: 0; width: 100%; height: 100px"
-        >Copyright © Artorius 2020 - Present</el-footer
+      <el-footer>Copyright © Artorius 2020 - Present</el-footer
       >
     </el-container>
   </div>
