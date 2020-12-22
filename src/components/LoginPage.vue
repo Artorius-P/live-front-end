@@ -53,7 +53,7 @@ export default {
         //校验用户名和密码是否正确;
         // this.$router.push({ path: "/personal" });
         axios
-          .post("http://127.0.0.1:5000/api/login", {
+          .post("http://a.boynextdoor.top:5000/api/login", {
             id: this.user.id,
             password: this.user.password,
           })

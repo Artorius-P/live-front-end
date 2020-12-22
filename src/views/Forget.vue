@@ -75,7 +75,7 @@ export default {
         return;
       } else {
         axios
-          .post("http://localhost:5000/api/sendmail", {
+          .post("http://a.boynextdoor.top:5000/api/sendmail", {
             id: this.user.id,
           })
           .then((res) => {
@@ -112,7 +112,7 @@ export default {
         //校验用户名和密码是否正确;
         // this.$router.push({ path: "/personal" });
         axios
-          .post("http://localhost:5000/api/reset", {
+          .post("http://a.boynextdoor.top:5000/api/reset", {
             id: this.user.id,
             code: this.user.code,
             password: this.user.password,
