@@ -81,6 +81,7 @@ export default {
     };
   },
   mounted(){
+    this.$refs.webrtc.join();
     if(this.$store.state.loginInfo.identity == '0') {
       this.isStu =true
       this.roomId = this.$store.state.room.id;
