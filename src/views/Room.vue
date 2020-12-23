@@ -6,7 +6,7 @@
       </el-header>
       <el-main>
         <live></live>
-          <vue-webrtc ref="webrtc"
+          <vue-webrtc v-if="isStu" ref="webrtc"
                       width="100%"
                       :roomId="roomId"
                       v-on:joined-room="logEvent"
@@ -35,7 +35,7 @@
           >
             聊天
           </el-button>
-          <el-button v-if="isStu"
+          <el-button
             @click="talk"
             icon="el-icon-chat-round"
             style="margin-left: 16px"
@@ -90,8 +90,8 @@ export default {
   mounted(){
     if(this.$store.state.loginInfo.identity == '0') {
       this.isStu =true
-      this.roomId = this.$store.state.room.id;
       }
+      this.roomId = 'onlineEduStu' + this.$store.state.room.id;
   },
   components: {
     notLogin,

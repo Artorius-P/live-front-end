@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2 v-if="isTeacher">学生界面</h2>
     <video id="videoElement" controls autoplay width="512" height="288"></video>
     <el-footer style="text-align: center;">
     <div v-if="isTeacher">
