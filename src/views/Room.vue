@@ -6,7 +6,7 @@
       </el-header>
       <el-main>
         <live></live>
-          <vue-webrtc v-if="isStu" ref="webrtc"
+          <vue-webrtc  ref="webrtc"
                       width="100%"
                       :roomId="roomId"
                       v-on:joined-room="logEvent"
