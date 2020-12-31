@@ -59,7 +59,7 @@ export default {
     }
     if (flvjs.isSupported()) {
       let liveUrl =
-        "http://a.boynextdoor.top/srs/live/" +
+        "http://127.0.0.1/srs/live/" +
         this.roomID +
         ".flv";
       var videoElement = document.getElementById("videoElement");
@@ -80,7 +80,7 @@ export default {
       this.$axios.post('http://127.0.0.1:8086/play', {
             audio: this.audioValue,
             video: this.videoValue,
-            url: 'rtmp://a.boynextdoor.top:1935/live/'+ this.roomID
+            url: 'rtmp://127.0.0.1:1935/live/'+ this.roomID
           }).then((res) => {
             console.log(res.data)
           })

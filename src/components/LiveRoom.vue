@@ -40,7 +40,7 @@ export default {
       if (this.$store.state.loginInfo.isLoggedIn) {
         this.loading = true;
         axios
-          .get("http://a.boynextdoor.top:5000/api/getRoom", {
+          .get("http://127.0.0.1:5000/api/getRoom", {
             headers: {
               Authorization: `Token ${this.$store.state.loginInfo.token}`,
             },

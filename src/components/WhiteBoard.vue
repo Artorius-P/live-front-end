@@ -1,6 +1,6 @@
 <!--
 <template>
-    <iframe :src="`http://a.boynextdoor.top:5000/whiteboard`"  width="1200px" height="800px"></iframe>
+    <iframe :src="`http://127.0.0.1:5000/whiteboard`"  width="1200px" height="800px"></iframe>
 </template>
 -->
 <template>
@@ -29,7 +29,7 @@
 <script>
 import { fabric } from "fabric";
 import io from "socket.io-client";
-let socket = io("ws://a.boynextdoor.top:5000/");
+let socket = io("ws://127.0.0.1:5000/");
 export default {
   data() {
     return {

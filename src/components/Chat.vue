@@ -43,7 +43,7 @@
 
 <script>
 import io from "socket.io-client";
-let socket = io("ws://a.boynextdoor.top:5000/");
+let socket = io("ws://127.0.0.1:5000/");
 
 export default {
   data() {

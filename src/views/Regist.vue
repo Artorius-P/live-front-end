@@ -80,7 +80,7 @@ export default {
         //校验用户名和密码是否正确;
         // this.$router.push({ path: "/personal" });
         axios
-          .post("http://a.boynextdoor.top:5000/api/regist", {
+          .post("http://127.0.0.1:5000/api/regist", {
             name: this.user.name,
             password: this.user.password,
             mail: this.user.mail,
